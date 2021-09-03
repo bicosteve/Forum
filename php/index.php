@@ -21,7 +21,9 @@ require_once '../db/db.php';
       <div class="menu">
         <a href="index.php" class="m-item">Home</a> |
         <a href="profile.php" class="m-item">Profile</a> |
-        <a href="login.php" class="m-item">Logout</a>
+        <a href="logout.php" class="m-item">Logout</a> |
+        <a href="login.php" class="m-item">Login</a> |
+        <a href="register.php" class="m-item">Register</a>
       </div>
       <div class="pageTitle">Thread Listing</div>
 
