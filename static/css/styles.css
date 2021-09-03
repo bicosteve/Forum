@@ -269,6 +269,15 @@ div.menu {
   margin-bottom: 15px;
 }
 
+.user_profile {
+  text-decoration: none !important;
+  font-size: 1rem;
+}
+
+.dot__separator {
+  font-weight: bolder;
+}
+
 @media (max-width: 800px) {
   div._panel div.info-bit {
     border-right: none;

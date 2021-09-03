@@ -1,3 +1,4 @@
+<?php $currentPage = 'Thread'; ?>
 <?php require_once 'includes/header.php'; ?>
 <div class="container">
   <div class="pageTitle">
@@ -19,18 +20,17 @@
             <div class="col-lg-12">
               <p class="big">Thread: General Thread</p>
             </div>
-            <div class="col-lg-12">
+            <div class="col-lg-12 mb-2">
               This is where we talk about every issue you can think of no matter how
               small or complex.
             </div>
-
-            <div class="col-lg-12">
-              <br />
-              <i class="glyphicon glyphicon-calendar"></i>
-              25 June, 2017 &nbsp;
-              <a href="#_reply"
-                ><i class="glyphicon glyphicon-comment"></i> Post Reply</a
-              >
+            <div class="col-lg-12 my-2">
+              <span class="mr-3"><i class="glyphicon glyphicon-user"></i> <a href="profile.php"
+                  class="user_profile">James
+                  Mike</a></span>
+              <small class="text-muted">25 June, 2017</small>
+              &nbsp;
+              <a href="#_reply"><i class="glyphicon glyphicon-comment"></i> Post Reply</a>
             </div>
           </div>
         </div>
@@ -80,14 +80,8 @@
         <div class="panel-body pad" id="_reply">
           <form action="" method="POST" role="form" id="theForm">
             <div class="form-group">
-              <textarea
-                name="reply"
-                id="reply"
-                class="form-control"
-                rows="5"
-                required="required"
-                placeholder="Post Reply"
-              ></textarea>
+              <textarea name="reply" id="reply" class="form-control" rows="5" required="required"
+                placeholder="Post Reply"></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">
