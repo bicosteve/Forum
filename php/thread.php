@@ -1,4 +1,10 @@
 <?php $currentPage = 'Thread'; ?>
+<?php 
+require_once '../db/db.php';
+
+
+
+?>
 <?php require_once 'includes/header.php'; ?>
 <div class="container">
   <div class="pageTitle">
@@ -26,9 +32,9 @@
             </div>
             <div class="col-lg-12 my-2">
               <span class="mr-3"><i class="glyphicon glyphicon-user"></i> <a href="profile.php"
-                  class="user_profile">James
+                  class="user_profile">@James
                   Mike</a></span>
-              <small class="text-muted">25 June, 2017</small>
+              <small class="text-muted"> - 25 June, 2017</small>
               &nbsp;
               <a href="#_reply"><i class="glyphicon glyphicon-comment"></i> Post Reply</a>
             </div>

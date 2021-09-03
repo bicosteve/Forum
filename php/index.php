@@ -1,4 +1,13 @@
 <?php $currentPage = 'Home'; ?>
+<?php 
+require_once '../db/db.php';
+
+
+
+?>
+
+
+
 <?php require_once 'includes/header.php'; ?>
 <div class="container">
   <div class="row">

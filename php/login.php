@@ -1,4 +1,10 @@
 <?php $currentPage = 'Login'; ?>
+<?php 
+require_once '../db/db.php';
+
+
+
+?>
 <?php require_once 'includes/header.php'; ?>
 <div class="container-fluid">
   <div class="row">

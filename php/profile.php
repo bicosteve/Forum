@@ -1,4 +1,10 @@
 <?php $currentPage = 'Profile'; ?>
+<?php 
+require_once '../db/db.php';
+
+
+
+?>
 <?php require_once 'includes/header.php'; ?>
 <!-- display the page title and the number of threads we got from the database -->
 <div class="pageTitle">My Profile</div>
