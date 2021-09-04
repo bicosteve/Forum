@@ -14,7 +14,7 @@ if(isset($_POST['register']) == 'POST'){
   $password2 = trim($_POST['password2']);
 
   if(checkUsername($username) != true){
-    $username_err = 'Required and can only be letters and numbers.';
+    $username_err = 'Required field and can only be letters and numbers.';
   }
   
   if(checkEmail($email) != true){
@@ -48,8 +48,8 @@ if(isset($_POST['register']) == 'POST'){
         $today = date("Y-m-d");
         $query = "INSERT INTO users(username,email,join_date,password) VALUES (:username,:email,:join_date,:password)";
         $insert_stmt = $db->prepare($query);
-        $values = ['username'=>$username,'email'=>$email,'join_date'=>$today,'password'=>$hashed_password];
-        $insert_stmt->execute($values);
+        $arr = ['username'=>$username,'email'=>$email,'join_date'=>$today,'password'=>$hashed_password];
+        $insert_stmt->execute($arr);
         $_SESSION['message'] = 'Successfully registered';
         $_SESSION['msg_type'] = 'success';
         header('refresh:1; login.php');
