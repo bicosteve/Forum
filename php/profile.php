@@ -9,6 +9,10 @@ $stmt = $db->prepare("SELECT * FROM users WHERE userid = ?");
 $stmt->execute([$userid]);
 $user = $stmt->fetch();
 
+$count = $db->prepare('SELECT COUNT(*) AS userposts FROM posts WHERE posts.userid = ?');
+$count->execute([$userid]);
+$posts = $count->fetch();
+
 
 
 
@@ -38,7 +42,11 @@ $user = $stmt->fetch();
           Username: <strong class="pull-right"><?php echo $user['username']; ?></strong>
         </li>
         <li class="list-group-item">
-          Num of Posts: <strong class="pull-right">23</strong>
+          <?php if(!$posts): ?>
+          Num of Posts: <strong class="pull-right"><?php echo 0; ?></strong>
+          <?php else: ?>
+          Num of Posts: <strong class="pull-right"><?php echo $posts['userposts']; ?></strong>
+          <?php endif; ?>
         </li>
         <li class="list-group-item">
           Join Date:
