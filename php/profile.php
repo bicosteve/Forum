@@ -2,12 +2,21 @@
 <?php 
 require_once '../db/db.php';
 
+session_start();
+$userid = $_SESSION['userid'];
+
+$stmt = $db->prepare("SELECT * FROM users WHERE userid = ?");
+$stmt->execute([$userid]);
+$user = $stmt->fetch();
+
+
+
 
 
 ?>
 <?php require_once 'includes/header.php'; ?>
 <!-- display the page title and the number of threads we got from the database -->
-<div class="pageTitle">My Profile</div>
+<div class="pageTitle"><?php echo ucfirst($user['username']); ?></div>
 
 <div class="row pad">
   <div class="col-sm-6 col-sm-offset-3">
@@ -19,21 +28,21 @@ require_once '../db/db.php';
       <ul class="list-group">
         <li class="list-group-item">
           Name:
-          <strong class="pull-right">Alexander McQuinn</strong>
+          <strong class="pull-right"><?php echo ucfirst($user['username']); ?></strong>
         </li>
         <li class="list-group-item">
           Email:
-          <strong class="pull-right">alexQnn@gmail.com</strong>
+          <strong class="pull-right"><?php echo $user['email']; ?></strong>
         </li>
         <li class="list-group-item">
-          Username: <strong class="pull-right">alexQnn</strong>
+          Username: <strong class="pull-right"><?php echo $user['username']; ?></strong>
         </li>
         <li class="list-group-item">
           Num of Posts: <strong class="pull-right">23</strong>
         </li>
         <li class="list-group-item">
           Join Date:
-          <strong class="pull-right">January 1, 2017</strong>
+          <strong class="pull-right"><?php echo $user['join_date']; ?></strong>
         </li>
       </ul>
     </div>

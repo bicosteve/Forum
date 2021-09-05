@@ -1,14 +1,45 @@
 <?php $currentPage = 'Home'; ?>
+
+
 <?php 
+
 require_once '../db/db.php';
+require_once 'functions/threadfunc.php';
+
+session_start();
 
 
+
+if(isset($_POST['submit']) == 'POST'){
+  
+  $post = trim($_POST['post']);
+  $description = trim($_POST['description']);
+  $post_date = date('Y-m-d');
+  $userid = (int) trim($_SESSION['userid']);
+
+  if(validatePost($post) != true){
+    $post_err = 'This field is required';
+  }
+
+  if(validateDescription($description)){
+    $description_err = 'This field is required';
+  }
+
+  $sql = "INSERT INTO posts(post,description,post_date,userid) VALUES (:post,:description,:post_date,:userid)";
+  $stmt = $db->prepare($sql);
+  $stmt->execute(['post'=>$post,'description'=>$description,'post_date'=>$post_date,'userid'=>$userid]);
+  
+  $_SESSION['message'] = 'Successfully created';
+  $_SESSION['msg_type'] = 'success';
+
+}
 
 ?>
 
 
 
 <?php require_once 'includes/header.php'; ?>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-lg-offset-0">
@@ -25,7 +56,7 @@ require_once '../db/db.php';
         <a href="login.php" class="m-item">Login</a> |
         <a href="register.php" class="m-item">Register</a>
       </div>
-      <div class="pageTitle">Thread Listing</div>
+      <div class="pageTitle">Threads</div>
 
       <div class="row">
         <div class="col-lg-3">
@@ -114,19 +145,19 @@ require_once '../db/db.php';
               <h4 class="modal-title">Add Thread</h4>
             </div>
             <div class="modal-body">
-              <form action="" method="POST" role="form">
+              <form action="index.php" method="POST" role="form">
                 <div class="form-group">
                   <label for="name">Thread Name</label>
-                  <input type="text" name="name" id="name" class="form-control" placeholder="Enter thread name"
-                    required="required" />
+                  <input type="text" name="post" id="name" class="form-control" placeholder="Enter thread name" />
+                  <?php echo isset($post_err)?"<span class='text-danger'>{$post_err}</span>":"" ?>
                 </div>
                 <div class="form-group">
                   <label for="description">Description</label>
                   <textarea class="form-control" name="description" id="description" cols="30" rows="10"
-                    placeholder="Enter thread description" required="required"></textarea>
+                    placeholder="Enter thread description"></textarea>
+                  <?php echo isset($description_err)?"<span class='text-danger'>{$description_err}</span>":"" ?>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
               </form>
             </div>
             <div class="modal-footer">
@@ -142,7 +173,7 @@ require_once '../db/db.php';
         <div class="row">
           <div class="col-lg-12">
             <div class="center">
-              Copyright &copy; 2017 Forum. All rights reserved.
+              Copyright &copy; <?php echo date('Y'); ?> Forum. All rights reserved.
             </div>
           </div>
         </div>

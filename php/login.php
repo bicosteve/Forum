@@ -10,11 +10,11 @@ if(isset($_POST['login']) == 'POST'){
   $email = trim($_POST['email']);
   $password = trim($_POST['password']);
 
-  if(checkEmail($email) != true){
+  if(validateEmail($email) != true){
     $email_err = 'This field is required and must be an email.';
   }
 
-  if(checkPassword($password) != true){
+  if(validatePassword($password) != true){
     $password_err = 'This field is required';
   }
 
@@ -25,7 +25,7 @@ if(isset($_POST['login']) == 'POST'){
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
       if(!$row){
-        $user_err = 'Incorrect user';
+        $user_err = 'User does not exist!';
       }
 
       if(!isset($user_err)){

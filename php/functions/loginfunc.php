@@ -1,6 +1,6 @@
 <?php
 
-function checkEmail($email){
+function validateEmail($email){
   $flag = true;
   if(empty($email) && !filter_var($email,FILTER_VALIDATE_EMAIL)){
     $flag = false;
@@ -9,7 +9,7 @@ function checkEmail($email){
   return $flag;
 }
 
-function checkPassword($password){
+function validatePassword($password){
   $flag = true;
   if(empty($password)){
     $flag = false;
