@@ -8,8 +8,6 @@ require_once 'functions/threadfunc.php';
 
 session_start();
 
-
-
 if(isset($_POST['submit']) == 'POST'){
   
   $post = trim($_POST['post']);
@@ -24,18 +22,25 @@ if(isset($_POST['submit']) == 'POST'){
   if(validateDescription($description)){
     $description_err = 'This field is required';
   }
-
-  $sql = "INSERT INTO posts(post,description,post_date,userid) VALUES (:post,:description,:post_date,:userid)";
-  $stmt = $db->prepare($sql);
-  $stmt->execute(['post'=>$post,'description'=>$description,'post_date'=>$post_date,'userid'=>$userid]);
   
-  $_SESSION['message'] = 'Successfully created';
-  $_SESSION['msg_type'] = 'success';
-
+  if(!isset($post_err) && !isset($description_err)){
+    try{
+      $sql = "INSERT INTO posts(post,description,post_date,userid) VALUES (:post,:description,:post_date,:userid)";
+      $stmt = $db->prepare($sql);
+      $stmt->execute(['post'=>$post,'description'=>$description,'post_date'=>$post_date,'userid'=>$userid]);
+      
+      $_SESSION['message'] = 'Successfully created';
+      $_SESSION['msg_type'] = 'success';
+    }catch(Exception $er){
+      $err = $er->getMessage();
+      if(isset($err)){
+        echo $err;
+      }
+    }
+  }
 }
 
 ?>
-
 
 
 <?php require_once 'includes/header.php'; ?>
@@ -45,24 +50,33 @@ if(isset($_POST['submit']) == 'POST'){
     <div class="col-lg-12 col-lg-offset-0">
       <div class="logo">
         <div>
-          <a href="./">Forum</a>
+          <a href="index.php">Forum</a>
           <span class="tagline">...cool community forum</span>
         </div>
       </div>
       <div class="menu">
         <a href="index.php" class="m-item">Home</a> |
+        <?php if(isset($_SESSION['username'])): ?>
         <a href="profile.php" class="m-item">Profile</a> |
         <a href="logout.php" class="m-item">Logout</a> |
+        <?php else: ?>
         <a href="login.php" class="m-item">Login</a> |
         <a href="register.php" class="m-item">Register</a>
+        <?php endif; ?>
       </div>
       <div class="pageTitle">Threads</div>
 
       <div class="row">
         <div class="col-lg-3">
+          <?php if(isset($_SESSION['username'])): ?>
           <a href="#newModal" data-toggle="modal" class="btn btn-primary" title="Add Thread">
             <i class="glyphicon glyphicon-plus-sign"></i> Add Thread
           </a>
+          <?php else: ?>
+          <a href="login.php" class="btn btn-primary">
+            Login To Add Thread
+          </a>
+          <?php endif; ?>
         </div>
       </div>
 

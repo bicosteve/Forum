@@ -5,6 +5,10 @@ require_once 'functions/loginfunc.php';
 
 session_start();
 
+if(isset($_SESSION['username'])){
+  header('location:index.php');
+}
+
 if(isset($_POST['login']) == 'POST'){
   
   $email = trim($_POST['email']);

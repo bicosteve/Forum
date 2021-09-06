@@ -7,6 +7,10 @@ require_once 'functions/registerfunc.php';
 
 session_start();
 
+if(isset($_SESSION['username'])){
+  header('location:index.php');
+}
+
 if(isset($_POST['register']) == 'POST'){
   $username = trim($_POST['username']);
   $email = trim($_POST['email']);

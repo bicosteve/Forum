@@ -3,19 +3,20 @@
 require_once '../db/db.php';
 
 session_start();
+
+if(!isset($_SESSION['username'])){
+  header('location: login.php');
+}
+
 $userid = $_SESSION['userid'];
 
 $stmt = $db->prepare("SELECT * FROM users WHERE userid = ?");
 $stmt->execute([$userid]);
 $user = $stmt->fetch();
 
-$count = $db->prepare('SELECT COUNT(*) AS userposts FROM posts WHERE posts.userid = ?');
+$count = $db->prepare("SELECT COUNT(*) AS userposts FROM posts WHERE posts.userid = ?");
 $count->execute([$userid]);
 $posts = $count->fetch();
-
-
-
-
 
 ?>
 <?php require_once 'includes/header.php'; ?>
