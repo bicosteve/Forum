@@ -40,6 +40,10 @@ if(isset($_POST['submit']) == 'POST'){
   }
 }
 
+$query = 'SELECT posts.userid, post,description,post_date,username,users.userid FROM posts INNER JOIN users ON posts.userid = users.userid ORDER BY post_date DESC';
+$stmt = $db->query($query);
+$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 
@@ -90,25 +94,28 @@ if(isset($_POST['submit']) == 'POST'){
                 <div class="col-lg-4">Last Post</div>
               </div>
             </div>
+
+            <?php if($posts): ?>
+            <?php foreach($posts as $post): ?>
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-4">
                   <h3 class="panel-title">
                     <a href="thread.php" style="font-size: 18px" class="blue">
-                      General Thread
+                      <?php echo $post['post']; ?>
                     </a>
                   </h3>
                 </div>
                 <div class="col-lg-4">
                   <p>
-                    <em> This thread is for sharing general information </em>
+                    <em> <?php echo $post['description']; ?> </em>
                   </p>
                 </div>
 
                 <div class="col-lg-4">
                   <p>
                     <i class="glyphicon glyphicon-calendar"></i>
-                    26 June, 2017 &nbsp;
+                    <?php echo $post['post_date']; ?> &nbsp;
                     <a href="thread.php#_reply">
                       <i class="glyphicon glyphicon-comment"></i>
                       Reply
@@ -117,6 +124,10 @@ if(isset($_POST['submit']) == 'POST'){
                 </div>
               </div>
             </div>
+            <?php endforeach; ?>
+            <?php else: ?>
+            <p>Nothing to see here yet.</p>
+            <?php endif; ?>
 
             <div class="panel-body">
               <div class="row">
