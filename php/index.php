@@ -1,15 +1,16 @@
 <?php $currentPage = 'Home'; ?>
 
 
-<?php 
+<?php
 
 require_once '../db/db.php';
 require_once 'functions/threadfunc.php';
 
 session_start();
 
+//posting posts to db
 if(isset($_POST['submit']) == 'POST'){
-  
+
   $post = trim($_POST['post']);
   $description = trim($_POST['description']);
   $post_date = date('Y-m-d');
@@ -22,27 +23,44 @@ if(isset($_POST['submit']) == 'POST'){
   if(validateDescription($description)){
     $description_err = 'This field is required';
   }
-  
-  if(!isset($post_err) && !isset($description_err)){
-    try{
-      $sql = "INSERT INTO posts(post,description,post_date,userid) VALUES (:post,:description,:post_date,:userid)";
-      $stmt = $db->prepare($sql);
-      $stmt->execute(['post'=>$post,'description'=>$description,'post_date'=>$post_date,'userid'=>$userid]);
-      
-      $_SESSION['message'] = 'Successfully created';
-      $_SESSION['msg_type'] = 'success';
-    }catch(Exception $er){
-      $err = $er->getMessage();
-      if(isset($err)){
-        echo $err;
-      }
+
+
+  try{
+    $sql = "INSERT INTO posts(post,description,post_date,userid) VALUES (:post,:description,:post_date,:userid)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(['post'=>$post,'description'=>$description,'post_date'=>$post_date,'userid'=>$userid]);
+
+    $_SESSION['message'] = 'Successfully created';
+    $_SESSION['msg_type'] = 'success';
+  }catch(Exception $er){
+    $err = $er->getMessage();
+    if(isset($err)){
+      echo $err;
     }
+}
+
+}
+
+//Fetching posts from the db
+try{
+  $query = 'SELECT posts.userid, post,description,post_date,username,users.userid
+  FROM posts INNER JOIN users ON posts.userid = users.userid ORDER BY post_date DESC';
+  $stmt = $db->query($query);
+  $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}catch(Exception $er){
+  $error = $er->getMessage();
+  if(isset($error)){
+    echo $error;
   }
 }
 
-$query = 'SELECT posts.userid, post,description,post_date,username,users.userid FROM posts INNER JOIN users ON posts.userid = users.userid ORDER BY post_date DESC';
-$stmt = $db->query($query);
-$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//counting the number of comments on a post in db
+try{}catch(Exception $er){
+  $error = $er->getMessage();
+  if(isset($error)){
+    echo $error;
+  }
+}
 
 ?>
 
@@ -91,7 +109,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
               <div class="row">
                 <div class="col-lg-4">Name</div>
                 <div class="col-lg-4">Description</div>
-                <div class="col-lg-4">Last Post</div>
+                <div class="col-lg-4">Date</div>
               </div>
             </div>
 
@@ -128,34 +146,6 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php else: ?>
             <p>Nothing to see here yet.</p>
             <?php endif; ?>
-
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-lg-4">
-                  <h3 class="panel-title">
-                    <a href="thread.php" style="font-size: 18px" class="blue">
-                      Games Thread
-                    </a>
-                  </h3>
-                </div>
-                <div class="col-lg-4">
-                  <p>
-                    <em> This thread is for game related discussions </em>
-                  </p>
-                </div>
-
-                <div class="col-lg-4">
-                  <p>
-                    <i class="glyphicon glyphicon-calendar"></i>
-                    26 June, 2017 &nbsp;
-                    <a href="thread.php#_reply">
-                      <i class="glyphicon glyphicon-comment"></i>
-                      Reply
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

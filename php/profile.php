@@ -1,5 +1,5 @@
 <?php $currentPage = 'Profile'; ?>
-<?php 
+<?php
 require_once '../db/db.php';
 
 session_start();
@@ -8,15 +8,23 @@ if(!isset($_SESSION['username'])){
   header('location: login.php');
 }
 
-$userid = $_SESSION['userid'];
+if(isset($_GET['profile'])){
+  try{
+    $userid = (int) $_GET['profile'];
+    $stmt = $db->prepare("SELECT userid,username,email,join_date FROM users WHERE userid = ?");
+    $stmt->execute([$userid]);
+    $user = $stmt->fetch();
 
-$stmt = $db->prepare("SELECT * FROM users WHERE userid = ?");
-$stmt->execute([$userid]);
-$user = $stmt->fetch();
-
-$count = $db->prepare("SELECT COUNT(*) AS userposts FROM posts WHERE posts.userid = ?");
-$count->execute([$userid]);
-$posts = $count->fetch();
+    $count = $db->prepare("SELECT COUNT(*) AS userposts FROM posts WHERE posts.userid = ?");
+    $count->execute([$userid]);
+    $posts = $count->fetch();
+  }catch(Exception $er){
+    $error = $er->getMessage();
+    if(isset($error)){
+      echo $error;
+    }
+  }
+}
 
 ?>
 <?php require_once 'includes/header.php'; ?>

@@ -1,5 +1,5 @@
 <?php $currentPage = 'Login'; ?>
-<?php 
+<?php
 require_once '../db/db.php';
 require_once 'functions/loginfunc.php';
 
@@ -10,7 +10,7 @@ if(isset($_SESSION['username'])){
 }
 
 if(isset($_POST['login']) == 'POST'){
-  
+
   $email = trim($_POST['email']);
   $password = trim($_POST['password']);
 
@@ -36,11 +36,9 @@ if(isset($_POST['login']) == 'POST'){
         if($email == $row['email'] && password_verify($password,$row['password'])){
           $_SESSION['userid'] = $row['userid'];
           $_SESSION['username'] = $row['username'];
-          $_SESSION['userid'] = $row['userid'];
-          $_SESSION['joineDate'] = $row['join_date'];
           $_SESSION['message'] = 'You are logged in';
           $_SESSION['msg_type'] = 'success';
-          header('refresh:1; index.php');
+          header('location: index.php');
         } else {
           $login_err = 'Incorrect password or email';
         }

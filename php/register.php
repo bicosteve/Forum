@@ -1,7 +1,6 @@
 <?php $currentPage = 'Register'; ?>
 
-
-<?php 
+<?php
 require_once '../db/db.php';
 require_once 'functions/registerfunc.php';
 
@@ -20,7 +19,7 @@ if(isset($_POST['register']) == 'POST'){
   if(checkUsername($username) != true){
     $username_err = 'Required field and can only be letters and numbers.';
   }
-  
+
   if(checkEmail($email) != true){
     $email_err = 'This field is required and must be email.';
   }
@@ -46,7 +45,7 @@ if(isset($_POST['register']) == 'POST'){
       if($row && $row['email'] == $email){
         $register_err = "This email is taken";
       }
-      
+
       if(!isset($register_err)){
         $hashed_password = password_hash($password,PASSWORD_DEFAULT);
         $today = date("Y-m-d");
@@ -60,14 +59,14 @@ if(isset($_POST['register']) == 'POST'){
       } else {
         $_SESSION['message'] = 'Fail to register';
         $_SESSION['msg_type'] = 'danger';
-        
+
       }
     }catch(Exception $e){
       $err = $e->getMessage();
       if(isset($err)){
-        echo $err; 
+        echo $err;
       }
-      
+
     }
   }
 
