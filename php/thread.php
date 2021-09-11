@@ -5,11 +5,13 @@ require_once 'functions/commentfunc.php';
 
 session_start();
 
+//getting all posts
 try{
   $query = 'SELECT posts.userid,postid, post,description,post_date,username,email,users.userid
   FROM posts INNER JOIN users ON posts.userid = users.userid ORDER BY post_date DESC';
   $stmt = $db->query($query);
   $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  //var_dump($posts);
 }catch(Exception $er){
   $err = $er->getMessage();
   if(isset($err)){
@@ -23,6 +25,9 @@ try{
   FROM comments INNER JOIN users ON users.userid = comments.userid";
   $stmt = $db->query($comment_query);
   $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  
+  
 }catch(Exception $er){
   $error = $er->getMessage();
   if(isset($error)){
@@ -88,7 +93,8 @@ if(isset($_POST['submit']) == 'POST'){
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12">
-              <span class="mr-3"><i class="glyphicon glyphicon-user"></i> <a href="profile.php?profile=<?php echo $post['userid']; ?>"
+              <span class="mr-3"><i class="glyphicon glyphicon-user"></i> <a
+                  href="profile.php?profile=<?php echo $post['userid']; ?>"
                   class="user_profile"><?php echo $post['username']; ?>
                 </a></span>
               <small class="text-muted"> &#9679; <?php echo $post['post_date']; ?></small>
@@ -102,9 +108,11 @@ if(isset($_POST['submit']) == 'POST'){
             <div class="col-lg-12">
               <?php if(isset($_SESSION['userid']) && (int) $_SESSION['userid'] == (int) $post['userid']): ?>
               &nbsp;
-              <a href="edit.php?edit=<?php echo $post['postid']; ?>"><i class="glyphicon glyphicon-pencil my-2"></i> Edit</a>
+              <a href="edit.php?edit=<?php echo $post['postid']; ?>"><i class="glyphicon glyphicon-pencil my-2"></i>
+                Edit</a>
               &nbsp;
-              <a href="delete.php?delete=<?php echo $post['postid']; ?>"><i class="glyphicon glyphicon-remove my-2"></i> Delete</a>
+              <a href="delete.php?delete=<?php echo $post['postid']; ?>"><i class="glyphicon glyphicon-remove my-2"></i>
+                Delete</a>
               <?php endif; ?>
             </div>
           </div>
@@ -139,10 +147,48 @@ if(isset($_POST['submit']) == 'POST'){
             Login To Reply
           </a>
           <?php endif; ?>
+          <?php
+          try{
+             //getting all the comments for each post in db using postid
+            $postid = $post['postid'];
+            $comment_query = "SELECT comment,comments.userid,comments.postid,comments.comment_date,username FROM comments INNER JOIN users ON users.userid = comments.userid WHERE comments.postid = :postid";
+            $stmt = $db->prepare($comment_query);
+            $stmt->execute(['postid'=>$postid]);
+            $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+          }catch(Exception $er){
+            $error = $er->getMessage();
+            if(isset($error)){
+              echo $error;
+            }
+          }  
+          ?>
+
+          <?php
+            try{
+              // counting comments
+              $count_comments_query = "SELECT comments.postid,COUNT(*) AS comment_count FROM comments WHERE comments.postid = :postid GROUP BY comments.postid"; 
+              $stmt = $db->prepare($count_comments_query);
+              $stmt->execute(['postid'=>$postid]);
+              $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            }catch(Exception $er){
+              $error = $er->getMessage();
+              if(isset($error)){
+                echo $error;
+              }
+            }
+              ?>
+
+          <?php if($row): ?>
+          <small style="display:block;margin: 5px 0;" class="text-muted"> <?php echo $row['comment_count']; ?>
+            &#9679;
+            Replies</small>
+          <?php else: ?>
+          <small style="display:block;margin: 5px 0;" class="text-muted"> <?php echo 0; ?> &#9679;
+            Replies</small>
+          <?php endif; ?>
+
           <?php if($comments): ?>
           <?php foreach($comments as $com): ?>
-          <small style="display:block;margin: 5px 0;" class="text-muted"> [ <?php echo $com['number']; ?> ] &#9679;
-            Replies</small>
           <div class="panel panel-primary reply" id="r1" style="border-radius: 10px">
             <div class="panel-body">
               <div class="row reply">
