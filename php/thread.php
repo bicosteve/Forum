@@ -11,27 +11,10 @@ try{
   FROM posts INNER JOIN users ON posts.userid = users.userid ORDER BY post_date DESC';
   $stmt = $db->query($query);
   $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  //var_dump($posts);
 }catch(Exception $er){
   $err = $er->getMessage();
   if(isset($err)){
     echo $err;
-  }
-}
-
-//Getting comments on a post from db
-try{
-  $comment_query = "SELECT COUNT(comments.postid) AS number,comment,comments.userid,comments.postid,comment_date,username
-  FROM comments INNER JOIN users ON users.userid = comments.userid";
-  $stmt = $db->query($comment_query);
-  $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-  
-  
-}catch(Exception $er){
-  $error = $er->getMessage();
-  if(isset($error)){
-    echo $error;
   }
 }
 
