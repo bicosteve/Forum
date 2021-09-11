@@ -131,9 +131,10 @@ if(isset($_POST['submit']) == 'POST'){
           </a>
           <?php endif; ?>
           <?php
+
+           //getting all the comments for each post in db using postid
           try{
-             //getting all the comments for each post in db using postid
-            $postid = $post['postid'];
+            $postid = (int) $post['postid'];
             $comment_query = "SELECT comment,comments.userid,comments.postid,comments.comment_date,username FROM comments INNER JOIN users ON users.userid = comments.userid WHERE comments.postid = :postid";
             $stmt = $db->prepare($comment_query);
             $stmt->execute(['postid'=>$postid]);
@@ -147,8 +148,8 @@ if(isset($_POST['submit']) == 'POST'){
           ?>
 
           <?php
+           // counting comments
             try{
-              // counting comments
               $count_comments_query = "SELECT comments.postid,COUNT(*) AS comment_count FROM comments WHERE comments.postid = :postid GROUP BY comments.postid"; 
               $stmt = $db->prepare($count_comments_query);
               $stmt->execute(['postid'=>$postid]);
