@@ -1,12 +1,10 @@
 <?php $currentPage = 'Home'; ?>
-
+<?php require_once 'includes/header.php'; ?>
 
 <?php
 
 require_once '../db/db.php';
 require_once 'functions/threadfunc.php';
-
-session_start();
 
 //posting posts to db
 if(isset($_POST['submit']) == 'POST'){
@@ -23,7 +21,6 @@ if(isset($_POST['submit']) == 'POST'){
   if(validateDescription($description)){
     $description_err = 'This field is required';
   }
-
 
   try{
     $sql = "INSERT INTO posts(post,description,post_date,userid) VALUES (:post,:description,:post_date,:userid)";
@@ -43,7 +40,7 @@ if(isset($_POST['submit']) == 'POST'){
 
 //Fetching posts from the db
 try{
-  $query = 'SELECT posts.userid, post,description,post_date,username,users.userid
+  $query = 'SELECT posts.postid,posts.userid, post,description,post_date,username,users.userid
   FROM posts INNER JOIN users ON posts.userid = users.userid ORDER BY post_date DESC';
   $stmt = $db->query($query);
   $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -63,9 +60,6 @@ try{}catch(Exception $er){
 }
 
 ?>
-
-
-<?php require_once 'includes/header.php'; ?>
 
 <div class="container">
   <div class="row">
@@ -118,11 +112,10 @@ try{}catch(Exception $er){
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-4">
-                  <h3 class="panel-title">
-                    <a href="thread.php" style="font-size: 18px" class="blue">
-                      <?php echo $post['post']; ?>
-                    </a>
-                  </h3>
+                  <h4 class="panel-title">
+                    <a style="font-size: 18px" class="blue" href="post.php?one_post=<?php echo $post['postid']; ?>">
+                      <?php echo $post['post']; ?> </a>
+                  </h4>
                 </div>
                 <div class="col-lg-4">
                   <p>

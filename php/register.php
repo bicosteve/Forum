@@ -1,10 +1,11 @@
 <?php $currentPage = 'Register'; ?>
+<?php require_once 'includes/header.php'; ?>
 
 <?php
 require_once '../db/db.php';
 require_once 'functions/registerfunc.php';
 
-session_start();
+//session_start();
 
 if(isset($_SESSION['username'])){
   header('location:index.php');
@@ -76,7 +77,7 @@ if(isset($_POST['register']) == 'POST'){
 
 
 ?>
-<?php require_once 'includes/header.php'; ?>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-4 col-lg-offset-4" id="loginBlock">

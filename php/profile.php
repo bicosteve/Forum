@@ -1,8 +1,9 @@
 <?php $currentPage = 'Profile'; ?>
+<?php require_once 'includes/header.php'; ?>
 <?php
 require_once '../db/db.php';
 
-session_start();
+//session_start();
 
 if(!isset($_SESSION['username'])){
   header('location: login.php');
@@ -27,8 +28,7 @@ if(isset($_GET['profile'])){
 }
 
 ?>
-<?php require_once 'includes/header.php'; ?>
-<!-- display the page title and the number of threads we got from the database -->
+
 <div class="pageTitle"><?php echo ucfirst($user['username']); ?></div>
 
 <div class="row pad">

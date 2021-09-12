@@ -1,9 +1,12 @@
 <?php $currentPage = 'Login'; ?>
+<?php require_once 'includes/header.php'; ?>
+
+
 <?php
 require_once '../db/db.php';
 require_once 'functions/loginfunc.php';
 
-session_start();
+//session_start();
 
 if(isset($_SESSION['username'])){
   header('location:index.php');
@@ -55,7 +58,7 @@ if(isset($_POST['login']) == 'POST'){
 ?>
 
 
-<?php require_once 'includes/header.php'; ?>
+
 
 <div class="container-fluid">
   <div class="row">
@@ -95,7 +98,7 @@ if(isset($_POST['login']) == 'POST'){
               </a>
             </div>
             <div class="form-group">
-              <a href="reset.php" class="btn btn-link">
+              <a href="reset-password.php" class="btn btn-link">
                 <i class="glyphicon glyphicon-plus-sign"></i> Forgot Password?
               </a>
             </div>

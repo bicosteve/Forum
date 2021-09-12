@@ -11,3 +11,28 @@
 </head>
 
 <body>
+  <?php
+  session_start();
+  
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\SMTP;
+  use PHPMailer\PHPMailer\Exception;
+
+  require_once '../vendor/autoload.php';
+  require_once 'config.php';
+
+  $mail = new PHPMailer();
+
+  $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+  $mail->isSMTP();
+  $mail->Host = "smtp.gmail.com";
+  $mail->SMTPAuth = true;
+  $mail->Username   = $user_email;                    
+  $mail->Password   = $user_password;
+  $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
+  $mail->Port = 465;
+
+  $mail->setFrom($user_email);
+  $mail->addReplyTo("no-reply@bico.com");
+
+  

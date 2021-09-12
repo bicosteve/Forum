@@ -1,9 +1,9 @@
 <?php $currentPage = 'Thread'; ?>
+<?php require_once 'includes/header.php'; ?>
+
 <?php
 require_once '../db/db.php';
 require_once 'functions/commentfunc.php';
-
-session_start();
 
 //getting all posts
 try{
@@ -55,7 +55,7 @@ if(isset($_POST['submit']) == 'POST'){
 }
 
 ?>
-<?php require_once 'includes/header.php'; ?>
+
 <div class="container">
   <div class="pageTitle">
     <a href="index.php">General Thread</a>
