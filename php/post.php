@@ -5,9 +5,10 @@ require_once '../db/db.php';
 if(isset($_GET['one_post'])){
   $postid = (int) $_GET['one_post'];
   try{
-    $stmt = $db->prepare("SELECT post,description,post_date,posts.userid,username FROM posts INNER JOIN users ON users.userid = posts.userid WHERE postid = ?");
+    $stmt = $db->prepare("SELECT postid,post,description,post_date,posts.userid,username FROM posts INNER JOIN users ON users.userid = posts.userid WHERE postid = ?");
     $stmt->execute([$postid]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
+    //var_dump($post);
   }catch(Exception $er){
     if(isset($er)){
       echo $er->getMessage();
@@ -36,7 +37,6 @@ if(isset($_GET['one_post'])){
       echo $error;
     }
   }
-
  
 }
 
@@ -114,30 +114,10 @@ if(isset($_GET['one_post'])){
   <?php else: ?>
   <p style="text-align: center;">No comments yet.</p>
   <?php endif; ?>
-
   <?php if(isset($_SESSION['userid'])): ?>
-  <div class="row pad" style="padding-bottom: 5px;">
-    <div class="col-lg-12 pad">
-      <div class="panel panel-primary">
-        <div class="panel-heading big">
-          <i class="glyphicon glyphicon-comment"></i> Post Reply
-        </div>
-        <div class="panel-body pad" id="_reply">
-          <form action="" method="POST" role="form" id="theForm">
-            <div class="form-group">
-              <textarea name="reply" id="reply" class="form-control" rows="5" required="required"
-                placeholder="Post Reply"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">
-              <i class="glyphicon glyphicon-save"></i> Submit
-            </button>
-            &nbsp;
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <a href="comment.php?comment_post=<?php echo $post['postid']; ?>" class="btn btn-primary">
+    Add First Comment
+  </a>
   <?php else: ?>
   <a href="login.php" class="btn btn-primary">
     Login To Comment

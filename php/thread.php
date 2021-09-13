@@ -18,42 +18,6 @@ try{
   }
 }
 
-
-//submitting comments to db
-if(isset($_POST['submit']) == 'POST'){
-  $comment = trim($_POST['comment']);
-  $postid = (int) $_POST['post_id'];
-  $userid = (int) $_SESSION['userid'];
-  $today = date('Y-m-d');
-
-  if(empty($comment)){
-    $comment_err = "This field is required";
-  }
-
-  if(!isset($comment_err)){
-    try{
-      $query = "INSERT INTO comments(comment,userid,postid,comment_date) VALUES (?,?,?,?)";
-      $stmt = $db->prepare($query);
-      $stmt->execute([$comment,$userid,$postid,$today]);
-
-      $_SESSION['message'] = "Succefully commented";
-      $_SESSION['msg_type'] = 'success';
-
-      header('location:thread.php');
-
-    }catch(Exception $er){
-      $error = $er->getMessage();
-      if(isset($error)){
-        echo $error;
-      }
-    }
-  } else {
-    $_SESSION['message'] = "Failed to comment";
-    $_SESSION['msg_type'] = 'danger';
-  }
-
-}
-
 ?>
 
 <div class="container">
@@ -88,43 +52,12 @@ if(isset($_POST['submit']) == 'POST'){
             <div style="margin-bottom:5px;" class="col-lg-12 mb-3">
               <?php echo $post['description']; ?>
             </div>
-            <div class="col-lg-12">
-              <?php if(isset($_SESSION['userid']) && (int) $_SESSION['userid'] == (int) $post['userid']): ?>
-              &nbsp;
-              <a href="edit.php?edit=<?php echo $post['postid']; ?>"><i class="glyphicon glyphicon-pencil my-2"></i>
-                Edit</a>
-              &nbsp;
-              <a href="delete.php?delete=<?php echo $post['postid']; ?>"><i class="glyphicon glyphicon-remove my-2"></i>
-                Delete</a>
-              <?php endif; ?>
-            </div>
           </div>
           <?php if(isset($_SESSION['userid'])): ?>
-          <div class="row pad">
-            <div class="col-lg-12 pad">
-              <div class="panel panel-primary">
-                <div class="panel-heading big">
-                  <i class="glyphicon glyphicon-comment"></i> Post Reply
-                </div>
-                <div class="panel-body pad" id="_reply">
-                  <form action="thread.php" method="POST" role="form" id="theForm">
-                    <div class="form-group">
-                      <input type="hidden" name="post_id" value="<?php echo $post['postid']; ?>">
-                    </div>
-                    <div class="form-group">
-                      <textarea name="comment" id="reply" class="form-control" rows="5"
-                        placeholder="Post Reply"></textarea>
-                      <?php echo isset($comment_err)?"<span class='text-danger'>{$comment_err}</span>":"" ?>
-                    </div>
-                    <button type="submit" class="btn btn-primary" name="submit">
-                      <i class="glyphicon glyphicon-save"></i> Submit
-                    </button>
-                    &nbsp;
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+          <a style="margin-top: 5px;" href="comment.php?comment_post=<?php echo $post['postid'] ?>"
+            class="btn btn-primary">
+            Comment
+          </a>
           <?php else: ?>
           <a href="login.php" class="btn btn-primary">
             Login To Reply
@@ -135,10 +68,11 @@ if(isset($_POST['submit']) == 'POST'){
            //getting all the comments for each post in db using postid
           try{
             $postid = (int) $post['postid'];
-            $comment_query = "SELECT comment,comments.userid,comments.postid,comments.comment_date,username FROM comments INNER JOIN users ON users.userid = comments.userid WHERE comments.postid = :postid";
+            $comment_query = "SELECT commentid,comment,comments.userid,comments.postid,comments.comment_date,username FROM comments INNER JOIN users ON users.userid = comments.userid WHERE comments.postid = :postid";
             $stmt = $db->prepare($comment_query);
             $stmt->execute(['postid'=>$postid]);
             $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            //var_dump($comments);
           }catch(Exception $er){
             $error = $er->getMessage();
             if(isset($error)){
@@ -183,6 +117,13 @@ if(isset($_POST['submit']) == 'POST'){
                   <div class="reply-details">
                     <i class="glyphicon glyphicon-calendar"></i> <?php echo $com['comment_date']; ?> &nbsp; <br />
                     <i class="glyphicon glyphicon-user"></i> <?php echo $com['username']; ?>
+                    <?php if(isset($_SESSION['userid']) && (int) $_SESSION['userid'] == $com['userid']): ?>
+                    &nbsp; <br />
+                    <a style="text-decoration: none; color:red;"
+                      href="delete.php?remove=<?php echo $com['commentid']; ?>">
+                      <i style="color:red;" class="glyphicon glyphicon-trash"></i> Delete
+                    </a>
+                    <?php endif; ?>
                   </div>
                 </div>
               </div>
