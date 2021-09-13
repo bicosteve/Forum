@@ -72,7 +72,6 @@ try{
             $stmt = $db->prepare($comment_query);
             $stmt->execute(['postid'=>$postid]);
             $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            //var_dump($comments);
           }catch(Exception $er){
             $error = $er->getMessage();
             if(isset($error)){

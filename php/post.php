@@ -8,7 +8,6 @@ if(isset($_GET['one_post'])){
     $stmt = $db->prepare("SELECT postid,post,description,post_date,posts.userid,username FROM posts INNER JOIN users ON users.userid = posts.userid WHERE postid = ?");
     $stmt->execute([$postid]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
-    //var_dump($post);
   }catch(Exception $er){
     if(isset($er)){
       echo $er->getMessage();
@@ -116,7 +115,7 @@ if(isset($_GET['one_post'])){
   <?php endif; ?>
   <?php if(isset($_SESSION['userid'])): ?>
   <a href="comment.php?comment_post=<?php echo $post['postid']; ?>" class="btn btn-primary">
-    Add First Comment
+    Add Comment
   </a>
   <?php else: ?>
   <a href="login.php" class="btn btn-primary">

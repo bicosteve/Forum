@@ -5,8 +5,6 @@
 require_once '../db/db.php';
 require_once 'functions/registerfunc.php';
 
-//session_start();
-
 if(isset($_SESSION['username'])){
   header('location:index.php');
 }

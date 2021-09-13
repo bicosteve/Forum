@@ -4,6 +4,10 @@
 <?php
 require_once '../db/db.php';
 
+if(!isset($_SESSION['userid'])){
+  header('location: login.php');
+}
+
 if(isset($_GET['comment_post'])){
 try{
     $postid = (int) $_GET['comment_post'];
@@ -11,7 +15,6 @@ try{
     $stmt = $db->prepare($q);
     $stmt->execute([$postid]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
-    //var_dump($post);
   }catch(Exception $er){
     $error = $er->getMessage();
   }
