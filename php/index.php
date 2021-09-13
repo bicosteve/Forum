@@ -127,7 +127,7 @@ try{}catch(Exception $er){
                   <p>
                     <i class="glyphicon glyphicon-calendar"></i>
                     <?php echo $post['post_date']; ?> &nbsp;
-                    <?php if(isset($_SESSION['userid']) && $_SESSION['userid'] == $post['userid']): ?>
+                    <?php if(isset($_SESSION['userid']) && (int) $_SESSION['userid'] == $post['userid']): ?>
                     <a href="delete.php?delete=<?php echo $post['postid']; ?>">
                       <i style="color:red;" class="glyphicon glyphicon-trash"></i>
                     </a>

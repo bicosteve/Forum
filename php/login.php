@@ -6,7 +6,6 @@
 require_once '../db/db.php';
 require_once 'functions/loginfunc.php';
 
-//session_start();
 
 if(isset($_SESSION['username'])){
   header('location:index.php');
@@ -32,7 +31,7 @@ if(isset($_POST['login']) == 'POST'){
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
       if(!$row){
-        $user_err = 'User does not exist!';
+        $user_err = 'Incorrect user or password!';
       }
 
       if(!isset($user_err)){

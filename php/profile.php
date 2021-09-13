@@ -3,8 +3,6 @@
 <?php
 require_once '../db/db.php';
 
-//session_start();
-
 if(!isset($_SESSION['username'])){
   header('location: login.php');
 }
@@ -25,12 +23,25 @@ if(isset($_GET['profile'])){
       echo $error;
     }
   }
+} else {
+  try{
+    $userid = (int) $_SESSION['userid'];
+    $stmt = $db->prepare("SELECT userid,username,email,join_date FROM users WHERE userid = ?");
+    $stmt->execute([$userid]);
+    $user = $stmt->fetch();
+
+    $count = $db->prepare("SELECT COUNT(*) AS userposts FROM posts WHERE posts.userid = ?");
+    $count->execute([$userid]);
+    $posts = $count->fetch();
+  }catch(Exception $er){
+    $error = $er->getMessage();
+    echo $error;
+  }
 }
 
 ?>
 
-<div class="pageTitle"><?php echo ucfirst($user['username']); ?></div>
-
+<div class="pageTitle"><?php echo ucfirst($_SESSION['username']); ?></div>
 <div class="row pad">
   <div class="col-sm-6 col-sm-offset-3">
     <div class="panel panel-primary">
