@@ -83,10 +83,10 @@ if(isset($_GET['one_post'])){
   <?php if($row): ?>
   <small style="display:block;margin: 3px 0;" class="text-muted"> <?php echo $row['comment_count']; ?>
     &#9679;
-    Replies</small>
+    Comment(s)</small>
   <?php else: ?>
   <small style="display:block;margin: 3px 0;" class="text-muted"> <?php echo 0; ?> &#9679;
-    Replies</small>
+    Comment(s)</small>
   <?php endif; ?>
 
   <?php if($comments): ?>

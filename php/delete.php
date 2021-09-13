@@ -36,6 +36,7 @@ if(isset($_GET['delete'])){
   
 }
 
+
 //deleting comment
 if(isset($_GET['remove'])){
   $commentid = (int) trim($_GET['remove']);

@@ -22,7 +22,7 @@ try{
 //submitting comments to db
 if(isset($_POST['submit']) == 'POST'){
   $comment = trim($_POST['comment']);
-  $postid = (int) trim($_POST['post_id']);
+  $postid = (int) $_POST['post_id'];
   $userid = (int) $_SESSION['userid'];
   $today = date('Y-m-d');
 
@@ -39,7 +39,7 @@ if(isset($_POST['submit']) == 'POST'){
       $_SESSION['message'] = "Succefully commented";
       $_SESSION['msg_type'] = 'success';
 
-      header('location:index.php');
+      header('location:thread.php');
 
     }catch(Exception $er){
       $error = $er->getMessage();
@@ -165,10 +165,10 @@ if(isset($_POST['submit']) == 'POST'){
           <?php if($row): ?>
           <small style="display:block;margin: 5px 0;" class="text-muted"> <?php echo $row['comment_count']; ?>
             &#9679;
-            Replies</small>
+            Comment(s)</small>
           <?php else: ?>
           <small style="display:block;margin: 5px 0;" class="text-muted"> <?php echo 0; ?> &#9679;
-            Replies</small>
+            Comment(s)</small>
           <?php endif; ?>
 
           <?php if($comments): ?>

@@ -127,9 +127,13 @@ try{}catch(Exception $er){
                   <p>
                     <i class="glyphicon glyphicon-calendar"></i>
                     <?php echo $post['post_date']; ?> &nbsp;
-                    <a href="thread.php#_reply">
-                      <i class="glyphicon glyphicon-comment"></i>
-                      Reply
+                    <?php if(isset($_SESSION['userid']) && $_SESSION['userid'] == $post['userid']): ?>
+                    <a href="delete.php?delete=<?php echo $post['postid']; ?>">
+                      <i style="color:red;" class="glyphicon glyphicon-trash"></i>
+                    </a>
+                    <?php endif; ?>
+                    <a style="margin-left:10px;" href="thread.php#_reply">
+                      <i style="color:rgba(51, 183, 112, 0.9);" class="glyphicon glyphicon-comment"></i>
                     </a>
                   </p>
                 </div>
