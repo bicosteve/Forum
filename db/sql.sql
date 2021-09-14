@@ -8,7 +8,7 @@ CREATE TABLE users(
 
 CREATE TABLE posts(
   postid INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  post VARCHAR(255) NOT NULL,
+  post TEXT NOT NULL,
   description TEXT NOT NULL,
   post_date DATE NOT NULL,
   userid INT NOT NULL,
@@ -25,4 +25,12 @@ CREATE TABLE comments(
                         ON DELETE CASCADE,
   FOREIGN KEY (postid) REFERENCES posts(postid)
                         ON DELETE CASCADE
+);
+
+CREATE TABLE password_reset(
+  resetid INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  reset_email TEXT NOT NULL,
+  reset_selector TEXT NOT NULL,
+  reset_token LONGTEXT NOT NULL,
+  reset_expire TEXT NOT NULL
 );
