@@ -44,7 +44,7 @@ if(isset($_POST['create_new_password'])){
       $token_check = password_verify($binary_token,$row['reset_token']);
 
       if(!$token_check){
-        $_SESSION['message'] = 'Token failed. Submit another reset request';
+        $_SESSION['message'] = 'Token failed. Submit another request';
         $_SESSION['msg_type'] = 'warning';
         header('location: reset-password.php');
       } elseif($token_check){
