@@ -20,8 +20,6 @@ try{
   }
 }
 
-
-//submitting comments to db
 if(isset($_POST['submit']) == 'POST'){
   $comment = trim($_POST['comment']);
   $postid = (int) $_POST['post_id'];

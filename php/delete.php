@@ -8,7 +8,6 @@ if(!isset($_SESSION['username'])){
   header('location: login.php');
 }
 
-//deleting posts
 if(isset($_GET['delete'])){
   try{
     $postid = (int) trim($_GET['delete']);
@@ -37,7 +36,6 @@ if(isset($_GET['delete'])){
 }
 
 
-//deleting comment
 if(isset($_GET['remove'])){
   $commentid = (int) trim($_GET['remove']);
   $userid = (int) $_SESSION['userid'];

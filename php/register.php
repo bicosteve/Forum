@@ -68,12 +68,7 @@ if(isset($_POST['register']) == 'POST'){
 
     }
   }
-
-
 }
-
-
-
 ?>
 
 <div class="container-fluid">

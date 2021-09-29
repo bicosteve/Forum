@@ -64,7 +64,6 @@ try{
           </a>
           <?php endif; ?>
           <?php
-
            //getting all the comments for each post in db using postid
           try{
             $postid = (int) $post['postid'];
@@ -136,7 +135,7 @@ try{
   </div>
   <?php endforeach; ?>
   <?php else: ?>
-  <p>No posts here yet</p>
+  <p style="text-align: center;padding:2px">No posts here yet</p>
   <?php endif; ?>
 </div>
 <?php require_once 'includes/footer.php' ?>

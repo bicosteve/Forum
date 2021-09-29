@@ -6,7 +6,6 @@
 require_once '../db/db.php';
 require_once 'functions/threadfunc.php';
 
-//posting posts to db
 if(isset($_POST['submit']) == 'POST'){
 
   $post = trim($_POST['post']);
@@ -141,7 +140,7 @@ try{}catch(Exception $er){
             </div>
             <?php endforeach; ?>
             <?php else: ?>
-            <p>Nothing to see here yet.</p>
+            <p style="text-align: center; padding:2px">Nothing to see here yet.</p>
             <?php endif; ?>
           </div>
         </div>

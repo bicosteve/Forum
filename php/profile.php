@@ -73,14 +73,7 @@ if(isset($_GET['profile'])){
           Join Date:
           <strong class="pull-right"><?php echo $user['join_date']; ?></strong>
         </li>
-        <!-- <li style="margin:10px 0;" class="list-group-item btn btn-primary">
-          <a style="padding:10px 0;" class="pull-right">
-            <a style="text-decoration:none; text-align:center; padding-bottom:10px;" href="index.php"
-              class="pull-right">Home</a>
-          </a>
-        </li> -->
       </ul>
-
     </div>
   </div>
 </div>

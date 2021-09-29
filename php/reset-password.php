@@ -77,7 +77,7 @@ if(isset($_POST['reset'])){
         $mail->IsHTML(true); 
         
         //Email body
-        $mail->Subject = 'Reset Your Password For Forum App';
+        $mail->Subject = 'Forum App Password Reset';
         $mail->Body    = 'You made a password reset request? Here is a link to your password reset'.'<a href="' .$url. '">'.$url.'</a>'.'<p>Ignore if you did not make the request';
         $mail->AltBody = 'This is a password reset request. Ignore if you did not make the request';
         
