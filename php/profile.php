@@ -4,37 +4,37 @@
 <?php
 require_once '../db/db.php';
 
-if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
   header('location: login.php');
 }
 
-if(isset($_GET['profile'])){
-  try{
+if (isset($_GET['profile'])) {
+  try {
     $userid = (int) $_GET['profile'];
-    $stmt = $db->prepare("SELECT userid,username,email,join_date FROM users WHERE userid = ?");
+    $stmt = $db->prepare("SELECT userid,username,email,join_date FROM forum_users WHERE userid = ?");
     $stmt->execute([$userid]);
     $user = $stmt->fetch();
 
     $count = $db->prepare("SELECT COUNT(*) AS userposts FROM posts WHERE posts.userid = ?");
     $count->execute([$userid]);
     $posts = $count->fetch();
-  }catch(Exception $er){
+  } catch (Exception $er) {
     $error = $er->getMessage();
-    if(isset($error)){
+    if (isset($error)) {
       echo $error;
     }
   }
 } else {
-  try{
+  try {
     $userid = (int) $_SESSION['userid'];
-    $stmt = $db->prepare("SELECT userid,username,email,join_date FROM users WHERE userid = ?");
+    $stmt = $db->prepare("SELECT userid,username,email,join_date FROM forum_users WHERE userid = ?");
     $stmt->execute([$userid]);
     $user = $stmt->fetch();
 
     $count = $db->prepare("SELECT COUNT(*) AS userposts FROM posts WHERE posts.userid = ?");
     $count->execute([$userid]);
     $posts = $count->fetch();
-  }catch(Exception $er){
+  } catch (Exception $er) {
     $error = $er->getMessage();
     echo $error;
   }
@@ -63,10 +63,10 @@ if(isset($_GET['profile'])){
           Username: <strong class="pull-right"><?php echo $user['username']; ?></strong>
         </li>
         <li class="list-group-item">
-          <?php if(!$posts): ?>
-          Num of Posts: <strong class="pull-right"><?php echo 0; ?></strong>
-          <?php else: ?>
-          Num of Posts: <strong class="pull-right"><?php echo $posts['userposts']; ?></strong>
+          <?php if (!$posts) : ?>
+            Num of Posts: <strong class="pull-right"><?php echo 0; ?></strong>
+          <?php else : ?>
+            Num of Posts: <strong class="pull-right"><?php echo $posts['userposts']; ?></strong>
           <?php endif; ?>
         </li>
         <li class="list-group-item">

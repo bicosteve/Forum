@@ -38,5 +38,3 @@ function comparePassword($password,$password2){
   }
   return $flag;
 }
-
-?>

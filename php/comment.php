@@ -4,48 +4,47 @@
 <?php
 require_once '../db/db.php';
 
-if(!isset($_SESSION['userid'])){
+if (!isset($_SESSION['userid'])) {
   header('location: login.php');
 }
 
-if(isset($_GET['comment_post'])){
-try{
+if (isset($_GET['comment_post'])) {
+  try {
     $postid = (int) $_GET['comment_post'];
-    $q = "SELECT postid, post,post_date,description,posts.userid,username FROM posts INNER JOIN users ON users.userid = posts.userid WHERE postid = ?";
+    $q = "SELECT postid, post,post_date,description,posts.userid,username FROM posts INNER JOIN forum_users ON forum_users.userid = posts.userid WHERE postid = ?";
     $stmt = $db->prepare($q);
     $stmt->execute([$postid]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
-  }catch(Exception $er){
+  } catch (Exception $er) {
     $error = $er->getMessage();
   }
 }
 
 
 //submitting comments to db
-if(isset($_POST['submit']) == 'POST'){
+if (isset($_POST['submit']) == 'POST') {
   $comment = trim($_POST['comment']);
   $postid = (int) $_POST['post_id'];
   $userid = (int) $_SESSION['userid'];
   $today = date('Y-m-d');
 
-  if(empty($comment)){
+  if (empty($comment)) {
     $comment_err = "This field is required";
   }
 
-  if(!isset($comment_err)){
-    try{
+  if (!isset($comment_err)) {
+    try {
       $query = "INSERT INTO comments(comment,userid,postid,comment_date) VALUES (?,?,?,?)";
       $stmt = $db->prepare($query);
-      $stmt->execute([$comment,$userid,$postid,$today]);
+      $stmt->execute([$comment, $userid, $postid, $today]);
 
       $_SESSION['message'] = "Succefully commented";
       $_SESSION['msg_type'] = 'success';
 
       header('location: thread.php');
-
-    }catch(Exception $er){
+    } catch (Exception $er) {
       $error = $er->getMessage();
-      if(isset($error)){
+      if (isset($error)) {
         echo $error;
       }
     }
@@ -53,7 +52,6 @@ if(isset($_POST['submit']) == 'POST'){
     $_SESSION['message'] = "Failed to comment";
     $_SESSION['msg_type'] = 'danger';
   }
-
 }
 
 ?>
@@ -76,9 +74,7 @@ if(isset($_POST['submit']) == 'POST'){
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12">
-              <span class="mr-3"><i class="glyphicon glyphicon-user"></i> <a
-                  href="profile.php?profile=<?php echo $post['userid']; ?>"
-                  class="user_profile"><?php echo $post['username']; ?>
+              <span class="mr-3"><i class="glyphicon glyphicon-user"></i> <a href="profile.php?profile=<?php echo $post['userid']; ?>" class="user_profile"><?php echo $post['username']; ?>
                 </a></span>
               <small class="text-muted"> &#9679; <?php echo $post['post_date']; ?></small>
             </div>

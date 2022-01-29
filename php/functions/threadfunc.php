@@ -1,18 +1,20 @@
-<?php 
+<?php
 
-function validatePost($post){
+function validatePost($post)
+{
   $flag = true;
-  if(empty($post)){
+  if (empty($post)) {
     $flag = false;
   }
-  
+
   return $flag;
 }
 
 
-function validateDescription($description){
+function validateDescription($description)
+{
   $flag = true;
-  if(empty($description)){
+  if (empty($description)) {
     $flag = false;
   }
 

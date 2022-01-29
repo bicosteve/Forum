@@ -1,8 +1,9 @@
-<?php 
+<?php
 
-function validateComment($comment){
+function validateComment($comment)
+{
   $flag = true;
-  if(empty($comment)){
+  if (empty($comment)) {
     $flag = false;
   }
   return $flag;

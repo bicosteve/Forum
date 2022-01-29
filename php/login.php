@@ -7,35 +7,35 @@ require_once '../db/db.php';
 require_once 'functions/loginfunc.php';
 
 
-if(isset($_SESSION['username'])){
+if (isset($_SESSION['username'])) {
   header('location:index.php');
 }
 
-if(isset($_POST['login']) == 'POST'){
+if (isset($_POST['login']) == 'POST') {
 
   $email = trim($_POST['email']);
   $password = trim($_POST['password']);
 
-  if(validateEmail($email) != true){
+  if (validateEmail($email) != true) {
     $email_err = 'This field is required and must be an email.';
   }
 
-  if(validatePassword($password) != true){
+  if (validatePassword($password) != true) {
     $password_err = 'This field is required';
   }
 
-  if(!isset($email_err) && !isset($password_err)){
-    try{
-      $stmt = $db->prepare("SELECT * FROM users WHERE email=:email");
-      $stmt->execute(['email'=>$email]);
+  if (!isset($email_err) && !isset($password_err)) {
+    try {
+      $stmt = $db->prepare("SELECT * FROM forum_users WHERE email=:email");
+      $stmt->execute(['email' => $email]);
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      if(!$row){
+      if (!$row) {
         $user_err = 'Incorrect user or password!';
       }
 
-      if(!isset($user_err)){
-        if($email == $row['email'] && password_verify($password,$row['password'])){
+      if (!isset($user_err)) {
+        if ($email == $row['email'] && password_verify($password, $row['password'])) {
           $_SESSION['userid'] = $row['userid'];
           $_SESSION['username'] = $row['username'];
           $_SESSION['message'] = 'You are logged in';
@@ -45,9 +45,9 @@ if(isset($_POST['login']) == 'POST'){
           $login_err = 'Incorrect password or email';
         }
       }
-    }catch(Exception $e){
+    } catch (Exception $e) {
       $error = $e->getMessage();
-      if(isset($error)){
+      if (isset($error)) {
         echo $error;
       }
     }
@@ -73,16 +73,16 @@ if(isset($_POST['login']) == 'POST'){
             <div class="form-group">
               <label for="email">Email</label>
               <input type="text" name="email" id="email" class="form-control" placeholder="Enter email" />
-              <?php echo isset($email_err)?"<span class='text-danger'>{$email_err}</span>":"" ?>
-              <?php echo isset($user_err)?"<span class='text-danger'>{$user_err}</span>":"" ?>
-              <?php echo isset($login_err)?"<span class='text-danger'>{$login_err}</span>":"" ?>
+              <?php echo isset($email_err) ? "<span class='text-danger'>{$email_err}</span>" : "" ?>
+              <?php echo isset($user_err) ? "<span class='text-danger'>{$user_err}</span>" : "" ?>
+              <?php echo isset($login_err) ? "<span class='text-danger'>{$login_err}</span>" : "" ?>
             </div>
 
             <div class="form-group">
               <label for="password">Password</label>
               <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" />
-              <?php echo isset($password_err)?"<span class='text-danger'>{$password_err}</span>":"" ?>
-              <?php echo isset($login_err)?"<span class='text-danger'>{$login_err}</span>":"" ?>
+              <?php echo isset($password_err) ? "<span class='text-danger'>{$password_err}</span>" : "" ?>
+              <?php echo isset($login_err) ? "<span class='text-danger'>{$login_err}</span>" : "" ?>
             </div>
 
             <div class="form-group">
