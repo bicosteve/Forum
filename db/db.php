@@ -6,16 +6,14 @@
 // $dbusername = 'root';
 // $dbpassword = '';
 
+
+//REMOTE DB CONFIG
 $hostname = 'remotemysql.com';
 $dbname = 'Zr5yUPFBDe';
 $dbusername = 'Zr5yUPFBDe';
 $dbpassword = 'YYaSIfGn39';
 
 $db_source = "mysql:host=$hostname;dbname=$dbname";
-//$db = new PDO($db_source, $dbusername, $dbpassword);
-
-//db remote configs
-//$db_source = "mysql:host=localhost;dbname=forum_db";
 
 $options = [
   PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -24,7 +22,6 @@ $options = [
 ];
 
 try {
-  //$db = new PDO($db_source, "root", "", $options);
   $db = new PDO($db_source, $dbusername, $dbpassword, $options);
 } catch (Exception $e) {
   $error = $e->getMessage();

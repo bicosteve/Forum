@@ -12,7 +12,7 @@ CREATE TABLE posts(
   description TEXT NOT NULL,
   post_date DATE NOT NULL,
   userid INT NOT NULL,
-  FOREIGN KEY(userid) REFERENCES users(userid)
+  FOREIGN KEY(userid) REFERENCES forum_users(userid)
 );
 
 CREATE TABLE comments(
@@ -21,7 +21,7 @@ CREATE TABLE comments(
   userid INT NOT NULL,
   postid INT NOT NULL,
   comment_date DATE NOT NULL,
-  FOREIGN KEY (userid) REFERENCES users(userid)
+  FOREIGN KEY (userid) REFERENCES forum_users(userid)
                         ON DELETE CASCADE,
   FOREIGN KEY (postid) REFERENCES posts(postid)
                         ON DELETE CASCADE
