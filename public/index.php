@@ -147,38 +147,40 @@ try {
         </div>
       </div>
 
-      <div class="modal fade" id="newModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                &times;
-              </button>
-              <h4 class="modal-title">Add Thread</h4>
-            </div>
-            <div class="modal-body">
-              <form action="index.php" method="POST" role="form">
-                <div class="form-group">
-                  <label for="name">Thread Name</label>
-                  <input type="text" name="post" id="name" class="form-control" placeholder="Enter thread name" />
-                  <?php echo isset($post_err) ? "<span class='text-danger'>{$post_err}</span>" : "" ?>
-                </div>
-                <div class="form-group">
-                  <label for="description">Description</label>
-                  <textarea class="form-control" name="description" id="description" cols="30" rows="10" placeholder="Enter thread description"></textarea>
-                  <?php echo isset($description_err) ? "<span class='text-danger'>{$description_err}</span>" : "" ?>
-                </div>
-                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">
-                Close
-              </button>
+      <?php if (isset($_SESSION['username'])) : ?>
+        <div class="modal fade" id="newModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  &times;
+                </button>
+                <h4 class="modal-title">Add Thread</h4>
+              </div>
+              <div class="modal-body">
+                <form action="index.php" method="POST" role="form">
+                  <div class="form-group">
+                    <label for="name">Thread Name</label>
+                    <input type="text" name="post" id="name" class="form-control" placeholder="Enter thread name" />
+                    <?php echo isset($post_err) ? "<span class='text-danger'>{$post_err}</span>" : "" ?>
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="10" placeholder="Enter thread description"></textarea>
+                    <?php echo isset($description_err) ? "<span class='text-danger'>{$description_err}</span>" : "" ?>
+                  </div>
+                  <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      <?php endif; ?>
 
       <footer>
         <div class="row">
