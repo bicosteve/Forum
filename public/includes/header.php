@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="/public/img/discussion.png">
   <title>Forum | <?php echo $currentPage; ?></title>
-  <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+ <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/public/css/editor.css" />
   <link rel="stylesheet" href="/public/css/styles.css" />
 </head>
 
