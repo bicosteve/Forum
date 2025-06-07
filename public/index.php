@@ -81,8 +81,8 @@ try {
         <?php endif; ?>
       </div>
 
-      <div class="row">
-        <div class="col-lg-3 mb-4" id="login_to_add_btn">
+      <div class="row" id="login_to_add_btn">
+        <div class="col-lg-3 mb-4">
           <?php if (isset($_SESSION['username'])) : ?>
             <a href="#newModal" data-toggle="modal" class="btn btn-primary" title="Add Thread">
               <i class="glyphicon glyphicon-plus-sign"></i> Add Thread
