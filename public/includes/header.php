@@ -13,7 +13,6 @@
 </head>
 
 <body>
-  <div class="pageTitle">Thread Listing</div>
   <?php session_start(); ?>
   <?php if(isset($_SESSION['message'])): ?>
   <div style="margin-top: 10px; text-align:center;" class="row">

@@ -80,7 +80,7 @@ try {
           <a href="register.php" class="m-item">Register</a>
         <?php endif; ?>
       </div>
-      <div class="pageTitle">Threads</div>
+      <!-- <div class="pageTitle">Threads</div> -->
 
       <div class="row">
         <div class="col-lg-3">
@@ -89,7 +89,7 @@ try {
               <i class="glyphicon glyphicon-plus-sign"></i> Add Thread
             </a>
           <?php else : ?>
-            <a href="login.php" class="btn btn-primary">
+            <a href="login.php" class="btn btn-primary mb-4">
               Login To Add Thread
             </a>
           <?php endif; ?>
