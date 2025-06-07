@@ -1,2 +1,4 @@
 /php/includes/config.php
 /php/send_mail.php
+/vendor/
+/.env

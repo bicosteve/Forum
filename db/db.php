@@ -1,17 +1,8 @@
 <?php
-
-// LOCAL DB CONFIG
-// $hostname = 'localhost';
-// $dbname = 'forum_db';
-// $dbusername = 'root';
-// $dbpassword = '';
-
-
-//REMOTE DB CONFIG
-$hostname = 'remotemysql.com';
-$dbname = 'Zr5yUPFBDe';
-$dbusername = 'Zr5yUPFBDe';
-$dbpassword = 'YYaSIfGn39';
+$hostname = getenv('HOST_NAME');
+$dbname = getenv("DB_NAME");
+$dbusername = getenv("DB_USER");
+$dbpassword = getenv("DB_PASSWORD");
 
 $db_source = "mysql:host=$hostname;dbname=$dbname";
 
@@ -28,3 +19,4 @@ try {
   $code = (int)$e->getCode();
   echo $error . ' - ' . $code;
 }
+
