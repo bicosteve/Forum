@@ -119,7 +119,7 @@ if (isset($_GET['one_post'])) {
       </a>
     <?php endif; ?>
   </div>
-  <?php require_once 'includes/footer.php' ?>
+  <?php require_once './includes/footer.php' ?>
 <?php else : ?>
   <p style="text-align: center;">Post does not exist</p>
 <?php endif ?>

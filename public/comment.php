@@ -112,4 +112,4 @@ if (isset($_POST['submit']) == 'POST') {
     </div>
   </div>
 </div>
-<?php require_once 'includes/footer.php' ?>
+<?php require_once './includes/footer.php' ?>

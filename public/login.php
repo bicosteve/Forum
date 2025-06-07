@@ -102,4 +102,4 @@ if (isset($_POST['login']) == 'POST') {
           </form>
         </div>
       </div>
-      <?php require_once 'includes/footer.php' ?>
+      <?php require_once './includes/footer.php' ?>

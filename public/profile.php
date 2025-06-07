@@ -42,7 +42,7 @@ if (isset($_GET['profile'])) {
 
 ?>
 
-<div class="pageTitle"><?php echo ucfirst($user['username']); ?></div>
+
 <div class="row pad">
   <div class="col-sm-6 col-sm-offset-3">
     <div class="panel panel-primary">

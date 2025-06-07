@@ -119,4 +119,4 @@ if (isset($_POST['create_new_password'])) {
         </div>
       <?php endif; ?>
     <?php endif; ?>
-    <?php require_once 'includes/footer.php' ?>
+    <?php require_once './includes/footer.php' ?>

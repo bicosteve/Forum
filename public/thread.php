@@ -135,4 +135,4 @@ try {
     <p>No posts here yet</p>
   <?php endif; ?>
 </div>
-<?php require_once 'includes/footer.php' ?>
+<?php require_once './includes/footer.php' ?>
