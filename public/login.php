@@ -1,5 +1,5 @@
 <?php $currentPage = 'Login'; ?>
-<?php require_once 'includes/header.php'; ?>
+<?php require_once './includes/header.php'; ?>
 
 
 <?php

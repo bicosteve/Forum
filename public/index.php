@@ -1,5 +1,6 @@
 <?php $currentPage = 'Home'; ?>
-<?php require_once 'includes/header.php'; ?>
+// <?php require_once '/includes/header.php'; ?>
+<?php require_once './includes/header.php'; ?>
 
 <?php
 

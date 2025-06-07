@@ -1,5 +1,5 @@
 <?php $currentPage = 'Thread'; ?>
-<?php require_once 'includes/header.php'; ?>
+<?php require_once './includes/header.php'; ?>
 
 <?php
 require_once '../db/db.php';

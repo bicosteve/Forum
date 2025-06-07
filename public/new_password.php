@@ -1,5 +1,5 @@
 <?php $currentPage = 'New Password'; ?>
-<?php require_once 'includes/header.php' ?>
+<?php require_once './includes/header.php' ?>
 
 
 <?php
