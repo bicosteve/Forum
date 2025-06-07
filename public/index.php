@@ -95,7 +95,7 @@ try {
         </div>
       </div>
 
-      <div class="row pad">
+      <div class="row pad mt-5">
         <div class="col-lg-12">
           <div class="panel panel-primary">
             <div class="panel-heading">
