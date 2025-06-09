@@ -20,36 +20,6 @@
 
 ---
 
-## 📁 Project Folder Structure
-
-forum/
-├── db/
-│ ├── db.php # Database connection logic
-│ └── sql.sql # SQL schema (users, posts, comments, etc.)
-│
-├── public/
-│ ├── css/
-│ │ └── styles.css # Application styling
-│ │
-│ ├── functions/
-│ │ ├── commentfunc.php # Comment-related functions
-│ │ ├── loginfunc.php # Login-related logic
-│ │ ├── registerfunc.php # User registration logic
-│ │ └── threadfunc.php # Thread/post management functions
-│ │
-│ ├── comment.php # Handle commenting on posts
-│ ├── delete.php # Delete posts or comments
-│ ├── index.php # Home page showing threads
-│ ├── login.php # Login page
-│ ├── logout.php # Logout logic
-│ ├── new_password.php # Set a new password (after reset)
-│ ├── post.php # Create a new post
-│ ├── register.php # User registration page
-│ ├── reset-password.php # Password reset request form
-│ └── thread.php # View a single thread/post and its comments
-
----
-
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the Repository
